@@ -6,11 +6,13 @@
 /*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:41:31 by filipe            #+#    #+#             */
-/*   Updated: 2023/05/25 16:42:42 by filipe           ###   ########.fr       */
+/*   Updated: 2023/05/28 22:22:46 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //populate the struct
+#include "../philosopher.h"
+
 int	param_init(t_philo **philo, t_ph_utils *utils, int ac, char **av)
 {
 	int	i;
@@ -21,7 +23,7 @@ int	param_init(t_philo **philo, t_ph_utils *utils, int ac, char **av)
 	if (err == 1)
 	{
 		free(utils);
-		return (255);
+		return (1);
 	}
 	i = -1;
 	*philo = malloc(sizeof(t_philo) * utils->n_philo);

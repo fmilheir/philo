@@ -16,7 +16,7 @@
 int	put_error(int *err)
 {
 	*err = 1;
-	return (255);
+	return (1);
 }
 
 int	check_edges(long long result, int sign, int *err)
@@ -28,6 +28,7 @@ int	check_edges(long long result, int sign, int *err)
 	return (result *= sign);
 }
 
+//the err is just the return for the fucntion param_int know if ther is a error
 int	ft_atoi(const char *str, int *err)
 {
 	long long	result;
@@ -48,8 +49,6 @@ int	ft_atoi(const char *str, int *err)
 		if (str[i] < '0' || str[i] > '9')
 			return (put_error(err));
 		result = (result * 10) + str[i++] - '0';
-		if (result > 2147483647)
-			return (put_error(err));
 	}
 	return (check_edges(result, 1, err));
 }

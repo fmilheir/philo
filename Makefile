@@ -18,7 +18,6 @@ $(NAME)	:	$(OBJS)
 
 %.o		:	%.c
 			$(CC) $(FLAGS) -o $@ -c $<
-# for creating .o with flags
 
 clean	:	
 				rm -rf $(OBJS)
@@ -29,6 +28,6 @@ fclean	:	clean
 re		:	fclean all
 
 r:
-	make re && clear && ./philo 1 800 200 200
+	make re && clear && ./philo 2 800 200 200
 
 .PHONY	:	all clean fclean re

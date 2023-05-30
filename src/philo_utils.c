@@ -19,6 +19,7 @@ int	thread_create_pair(t_philo *philo)
 
 	time = get_time(0);
 	i = 0;
+	usleep(2500 * philo->utils->n_philo);
 	while (i < philo->utils->n_philo)
 	{
 		philo[i].start = time;
@@ -28,7 +29,6 @@ int	thread_create_pair(t_philo *philo)
 			return (1);
 		i += 2;
 	}
-	usleep(25 * philo->utils->n_philo);
 	thread_create_unpair(philo, time);
 	return (0);
 }
@@ -49,7 +49,7 @@ int	thread_create_unpair(t_philo *philo, long time)
 	i = 1;
 	while (i < philo->utils->n_philo)
 	{
-		philo[i].start = time;
+		philo[i].start = time;		
 		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
 			return (1);
 		if (pthread_detach(philo[i].thread) != 0)

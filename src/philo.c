@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		utils = malloc(sizeof(t_ph_utils));
-		if (param_init(&philo, utils, argc, argv) == 255)
+		if (param_init(&philo, utils, argc, argv) == 1)
 			return (printf("Invalid arg type/range\n"));
 		thread_create_pair(philo);
 		while (1)
