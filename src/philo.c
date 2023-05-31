@@ -25,9 +25,9 @@ int	main(int argc, char **argv)
 		thread_create_pair(philo);
 		while (1)
 		{
-			if (monitoring(philo, utils) == EXIT)
+			if (monitoring(philo, utils) == EXIT){
 				return (0);
-			usleep(50);
+			}
 		}
 	}
 	return (printf("Invalid number of args\n"));

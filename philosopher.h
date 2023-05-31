@@ -57,7 +57,6 @@ int			ft_atoi(const char *str, int *err);
 int			param_init(t_philo **philo,	t_ph_utils *utils, int ac, char **av);
 void		init_parse(int ac, char **av, t_ph_utils *utils, int *err);
 int			thread_create_pair(t_philo *philo);
-int			thread_create_unpair(t_philo *philo, long time);
 
 //Helper fucntions
 long long	get_time(long start);
@@ -67,6 +66,7 @@ void		mini_print(t_philo *philo, char *str, long time);
 //Routine functions
 void		*routine(void *philo);
 void		routine_est(t_philo *philo);
+void		routine2(t_philo *philo);
 
 //Monitoring functions 
 int			prompt_death(t_philo *philo);

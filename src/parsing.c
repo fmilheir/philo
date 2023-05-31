@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fmilheir <fmilheir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:41:31 by filipe            #+#    #+#             */
-/*   Updated: 2023/05/28 22:22:46 by filipe           ###   ########.fr       */
+/*   Updated: 2023/05/31 20:56:54 by fmilheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	param_init(t_philo **philo, t_ph_utils *utils, int ac, char **av)
 		(*philo)[i].philo_id = i + 1;
 		(*philo)[i].n_eaten = 0;
 		(*philo)[i].left_fork = i;
-		(*philo)[i].right_fork = i + 1;
+		(*philo)[i].right_fork = (i + 1);
 		(*philo)[i].last_eaten = 0;
 		(*philo)[i].utils = utils;
 		if (i == utils->n_philo - 1)
@@ -50,12 +50,12 @@ void	init_parse(int ac, char **av, t_ph_utils *utils, int *err)
 	utils->time_to_sleep = ft_atoi(av[4], err);
 	utils->loop = 0;
 	if (ac == 6)
-		utils->meals = ft_atoi(av[5], err);
+		utils->meals = ft_atoi(av[5], err) - 1;
 	else
 		utils->meals = -1;
 	if (*err == 1)
 		return ;
 	pthread_mutex_init(&utils->mutex_msg, NULL);
 	pthread_mutex_init(&utils->time, NULL);
-	utils->fork = malloc(sizeof(pthread_mutex_t) * utils->n_philo);
+	utils->fork = (pthread_mutex_t*)malloc(sizeof(utils->fork) * utils->n_philo);
 }
