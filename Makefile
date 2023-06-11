@@ -1,6 +1,7 @@
 NAME		=	philo
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -g -fsanitize=thread
+FLAGS		=	-Wall -Wextra -Werror -g 
+#-fsanitize=thread
 
 SRCS		=	src/philo.c\
 				src/philo_utils.c\
@@ -14,7 +15,7 @@ OBJS		=	$(SRCS:.c=.o)
 all		: 	$(NAME)
 
 $(NAME)	:	$(OBJS)
-			$(CC) -o $(NAME) $(FLAGS) $(OBJS) -lpthread
+			$(CC) -o $(NAME) $(FLAGS) $(OBJS) -lpthread 
 
 %.o		:	%.c
 			$(CC) $(FLAGS) -o $@ -c $<
@@ -28,7 +29,8 @@ fclean	:	clean
 re		:	fclean all
 
 r:
-	make re && clear && ./philo 5 600 150 150
-
+	make re && clear && ./philo 4 410 200 200
 .PHONY	:	all clean fclean re
 
+#5 800 200 200 7 | grep "2 is eating" | wc -l
+#tenho de rever os tempos para 4 410 200 200

@@ -23,32 +23,9 @@ void	mini_print(t_philo *philo, char *str, long time)
 void	routine2(t_philo *philo)
 {
 	if (philo->philo_id % 2 == 0)
-	{
-		pthread_mutex_lock(&philo->utils->fork[philo->left_fork]);
-		mini_print(philo, "has taken a fork\n", get_time(philo->start));
-		pthread_mutex_lock(&philo->utils->fork[philo->right_fork]);
-		mini_print(philo, "has taken a fork\n", get_time(philo->start));
-		pthread_mutex_lock(&philo->utils->time);
-		philo->last_eaten = get_time(philo->start);
-		pthread_mutex_unlock(&philo->utils->time);
-		mini_print(philo, "is eating\n", get_time(philo->start));
-		sleeper(philo->utils->time_to_eat);
-		pthread_mutex_unlock(&philo->utils->fork[philo->left_fork]);
-		pthread_mutex_unlock(&philo->utils->fork[philo->right_fork]);
-	}
-	else {
-		pthread_mutex_lock(&philo->utils->fork[philo->right_fork]);
-		mini_print(philo, "has taken a fork\n", get_time(philo->start));
-		pthread_mutex_lock(&philo->utils->fork[philo->left_fork]);
-		mini_print(philo, "has taken a fork\n", get_time(philo->start));
-		pthread_mutex_lock(&philo->utils->time);
-		philo->last_eaten = get_time(philo->start);
-		pthread_mutex_unlock(&philo->utils->time);
-		mini_print(philo, "is eating\n", get_time(philo->start));
-		sleeper(philo->utils->time_to_eat);
-		pthread_mutex_unlock(&philo->utils->fork[philo->left_fork]);
-		pthread_mutex_unlock(&philo->utils->fork[philo->right_fork]);
-	}
+		deal_pair(philo);
+	else
+		deal_odd(philo);
 	philo->n_eaten++;
 	pthread_mutex_lock(&philo->utils->looper);
 	if (philo->n_eaten == philo->utils->meals && philo->utils->meals != -1)

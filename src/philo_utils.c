@@ -12,7 +12,7 @@
 
 #include "../philosopher.h"
 //create te threads for the even pairs of philos
-int	thread_create_pair(t_philo *philo)
+int	thread_create_thread(t_philo *philo)
 {
 	int		i;
 	long	time;
@@ -29,6 +29,36 @@ int	thread_create_pair(t_philo *philo)
 		i ++;
 	}
 	return (0);
+}
+
+void	deal_pair(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->utils->fork[philo->left_fork]);
+	mini_print(philo, "has taken a fork\n", get_time(philo->start));
+	pthread_mutex_lock(&philo->utils->fork[philo->right_fork]);
+	mini_print(philo, "has taken a fork\n", get_time(philo->start));
+	pthread_mutex_lock(&philo->utils->time);
+	philo->last_eaten = get_time(philo->start);
+	pthread_mutex_unlock(&philo->utils->time);
+	mini_print(philo, "is eating\n", get_time(philo->start));
+	sleeper(philo->utils->time_to_eat);
+	pthread_mutex_unlock(&philo->utils->fork[philo->left_fork]);
+	pthread_mutex_unlock(&philo->utils->fork[philo->right_fork]);
+}
+
+void	deal_odd(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->utils->fork[philo->right_fork]);
+	mini_print(philo, "has taken a fork\n", get_time(philo->start));
+	pthread_mutex_lock(&philo->utils->fork[philo->left_fork]);
+	mini_print(philo, "has taken a fork\n", get_time(philo->start));
+	pthread_mutex_lock(&philo->utils->time);
+	philo->last_eaten = get_time(philo->start);
+	pthread_mutex_unlock(&philo->utils->time);
+	mini_print(philo, "is eating\n", get_time(philo->start));
+	sleeper(philo->utils->time_to_eat);
+	pthread_mutex_unlock(&philo->utils->fork[philo->left_fork]);
+	pthread_mutex_unlock(&philo->utils->fork[philo->right_fork]);
 }
 
 int	monitoring(t_philo *philo, t_ph_utils *utils)

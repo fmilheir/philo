@@ -30,11 +30,12 @@ typedef struct s_ph_utils
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				meals;
+	int				dead;
 	pthread_mutex_t	mutex_msg;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	time;
 	pthread_mutex_t	looper;
-
+	pthread_mutex_t	finish;
 }	t_ph_utils;
 
 typedef struct s_philo
@@ -50,13 +51,15 @@ typedef struct s_philo
 }	t_philo;
 
 //info parsing
-void		error_checks(int ac, char **av, t_ph_utils *utils);
+//void		error_checks(int ac, char **av, t_ph_utils *utils);
 int			ft_atoi(const char *str, int *err);
 
 //Philo creation/inits
 int			param_init(t_philo **philo,	t_ph_utils *utils, int ac, char **av);
 void		init_parse(int ac, char **av, t_ph_utils *utils, int *err);
-int			thread_create_pair(t_philo *philo);
+int			thread_create_thread(t_philo *philo);
+void		deal_pair(t_philo *philo);
+void		deal_odd(t_philo *philo);
 
 //Helper fucntions
 long long	get_time(long start);
@@ -65,11 +68,19 @@ void		mini_print(t_philo *philo, char *str, long time);
 
 //Routine functions
 void		*routine(void *philo);
-void		routine_est(t_philo *philo);
+//void		routine_est(t_philo *philo);
 void		routine2(t_philo *philo);
+void		thinking(t_philo *philo);
+void		sleeping(t_philo *philo);
+int			checker(t_philo *philo);
 
 //Monitoring functions 
 int			prompt_death(t_philo *philo);
 int			monitoring(t_philo *philo, t_ph_utils *utils);
+int			stop(t_philo *philo);
+
+int			thread_create_pair(t_philo *philo);
+int			thread_create_unpair(t_philo *philo, long time);
+
 
 #endif

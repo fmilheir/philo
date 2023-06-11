@@ -11,6 +11,23 @@
 /* ************************************************************************** */
 
 #include "../philosopher.h"
+/*
+int		stop(t_philo *philo)
+{
+	int i;
+
+	i = -1;
+	while (i++ < philo->utils->n_philo -1)
+		pthread_join(philo[i].thread, NULL);
+	pthread_mutex_destroy(&philo->utils->mutex_msg);
+	i = -1;
+	while (++i < philo->utils->n_philo)
+		pthread_mutex_destroy(&philo->utils->fork[i]);
+	free(philo->utils);
+	return (0);
+}
+*/
+
 
 int	main(int argc, char **argv)
 {
@@ -22,12 +39,12 @@ int	main(int argc, char **argv)
 		utils = malloc(sizeof(t_ph_utils));
 		if (param_init(&philo, utils, argc, argv) == 1)
 			return (printf("Invalid arg type/range\n"));
-		thread_create_pair(philo);
+		thread_create_thread(philo);
 		while (1)
 		{
-			if (monitoring(philo, utils) == EXIT){
-				return (0);
-			}
+			if (monitoring(philo, utils) == EXIT)
+				return(0);
+			usleep(50);
 		}
 	}
 	return (printf("Invalid number of args\n"));
